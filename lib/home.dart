@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/material.dart';
 
 class Home extends StatefulWidget {
@@ -15,36 +13,30 @@ class _HomeState extends State<Home> {
   String _resultText = "";
 
   void _result() {
-    double weight = double.parse(_controllerWeight.text);
-    double height = double.parse(_controllerHeight.text);
+    double weight = double.parse(_controllerWeight.text.replaceAll(",", "."));
+    double height = double.parse(_controllerHeight.text.replaceAll(",", "."));
     double imc = weight / (height * height);
 
-    if (weight == null || height == null) {
+    if (imc < 18.5) {
       setState(() {
-        _resultText = "Digite valores usando (.)";
+        _resultText = "Sua condicao de Saúde é: Magreza";
+      });
+    } else if (imc > 18.5 && imc < 24.9) {
+      setState(() {
+        _resultText = "Sua condicao de Saúde é: Normal";
+      });
+    } else if (imc > 25.0 && imc < 29.0) {
+      setState(() {
+        _resultText = "Sua condicao de Saúde é: Sobrepeso";
+      });
+    } else if (imc > 30.0 && imc < 39.9) {
+      setState(() {
+        _resultText = "Sua condicao de Saúde é: Obesidade";
       });
     } else {
-      if (imc < 18.5) {
-        setState(() {
-          _resultText = "Sua condicao de Saúde é: Magreza";
-        });
-      } else if (imc > 18.5 && imc < 24.9) {
-        setState(() {
-          _resultText = "Sua condicao de Saúde é: Normal";
-        });
-      } else if (imc > 25.0 && imc < 29.0) {
-        setState(() {
-          _resultText = "Sua condicao de Saúde é: Sobrepeso";
-        });
-      } else if (imc > 30.0 && imc < 39.9) {
-        setState(() {
-          _resultText = "Sua condicao de Saúde é: Obesidade";
-        });
-      } else {
-        setState(() {
-          _resultText = "Sua condicao de Saúde é: Obesidade Grave";
-        });
-      }
+      setState(() {
+        _resultText = "Sua condicao de Saúde é: Obesidade Grave";
+      });
     }
   }
 
@@ -77,6 +69,9 @@ class _HomeState extends State<Home> {
                   labelText: "Digite a sua altura",
                 ),
                 controller: _controllerHeight,
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 12),
               ),
               RaisedButton(
                 onPressed: () => _result(),
