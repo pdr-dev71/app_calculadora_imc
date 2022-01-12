@@ -54,7 +54,7 @@ class _HomeState extends State<Home> {
             children: [
               Padding(
                 padding: EdgeInsets.only(top: 10),
-                child: Image.asset("images/imc.jpg"),
+                child: Image.asset("assets/images/imc.png"),
               ),
               TextField(
                 keyboardType: TextInputType.number,
