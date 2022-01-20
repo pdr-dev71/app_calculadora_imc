@@ -17,25 +17,31 @@ class _HomeState extends State<Home> {
     double height = double.parse(_controllerHeight.text.replaceAll(",", "."));
     double imc = weight / (height * height);
 
+    imc = double.parse(imc.toStringAsFixed(1));
+
     if (imc < 18.5) {
       setState(() {
-        _resultText = "Sua condicao de Saúde é: Magreza";
+        _resultText = "Sua condição de Saúde é: Magreza";
       });
-    } else if (imc > 18.5 && imc < 24.9) {
+    } else if (imc > 18.5 && imc <= 24.9) {
       setState(() {
-        _resultText = "Sua condicao de Saúde é: Normal";
+        _resultText = "Sua condição de Saúde é: Normal";
       });
     } else if (imc > 25.0 && imc < 29.0) {
       setState(() {
-        _resultText = "Sua condicao de Saúde é: Sobrepeso";
+        _resultText = "Sua condição de Saúde é: Sobrepeso";
       });
     } else if (imc > 30.0 && imc < 39.9) {
       setState(() {
-        _resultText = "Sua condicao de Saúde é: Obesidade";
+        _resultText = "Sua condição de Saúde é: Obesidade";
+      });
+    } else if (imc > 40.0) {
+      setState(() {
+        _resultText = "Sua condição de Saúde é: Obesidade Grave";
       });
     } else {
       setState(() {
-        _resultText = "Sua condicao de Saúde é: Obesidade Grave";
+        _resultText = "Erro";
       });
     }
   }
@@ -53,14 +59,12 @@ class _HomeState extends State<Home> {
           child: Column(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 10),
-                child: Image.asset("assets/images/imc.png"),
+                padding: EdgeInsets.only(top: 5),
+                child: Image.asset("assets/images/imc.jpg"),
               ),
               TextField(
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Digite o seu peso",
-                ),
+                decoration: InputDecoration(labelText: "Digite o seu peso"),
                 controller: _controllerWeight,
               ),
               TextField(
